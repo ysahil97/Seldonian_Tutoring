@@ -56,7 +56,6 @@ def generate_episodes_and_calc_J(**kwargs):
         returns = np.array([weighted_sum_gamma(ep.rewards,env.gamma) for ep in episodes])
         J = np.mean(returns)
         return episodes,J
-# perf_eval_kwargs = {'n_episodes_for_eval':n_episodes_for_eval} 
 
 def Robinhood_experiments(spec_file):
     # Parameter setup
@@ -65,15 +64,17 @@ def Robinhood_experiments(spec_file):
     save_plot = False
     performance_metric = 'J(pi_new)'
     n_trials = 20
+
+    # We generate data fractions as a log space
     data_fracs = np.logspace(-2.3,0,10)
-    # print(data_fracs)
 
     n_workers = 8
     verbose=True
-    results_dir = f'results/gridworld_2022Dec09_4_2_{n_trials}_trials'
+    results_dir = f'results/gridworld_{n_trials}_trials'
     os.makedirs(results_dir,exist_ok=True)
     plot_savename = os.path.join(results_dir,f'gridworld_{n_trials}trials.png')
     n_episodes_for_eval = 1000
+
     # Load spec
     specfile = spec_file
     spec = load_pickle(specfile)

@@ -32,7 +32,8 @@ trial_dict["num_episodes"] = 10000
 trial_dict["num_trials"] = 1
 trial_dict["vis"] = False
 
-# def main():/
+
+# Generate the contextual bandit episodes
 episodes, agent = run_trial(trial_dict)
 for ep in episodes:
     print(ep)
@@ -45,8 +46,7 @@ episodes = load_pickle(episodes_file)
 dataset = RLDataSet(episodes=episodes)
 
 
-# Initialize policy
-# num_states = 9
+# Initialize the spec file
 observation_space = Discrete_Space(0, 1)
 action_space = Discrete_Space(0, 2)
 env_description =  Env_Description(observation_space, action_space)
@@ -67,12 +67,14 @@ spec = createRLSpec(
     save_dir='.',
     verbose=True)
 
+
 # load specfile
 specfile = './spec.pkl'
 spec = load_pickle(specfile)
 spec.optimization_hyperparams['num_iters']=100
 spec.optimization_hyperparams['alpha_theta']=0.05
 spec.optimization_hyperparams['alpha_lamb']=0.01
+
 # Run Seldonian algorithm 
 SA = SeldonianAlgorithm(spec)
 passed_safety,solution = SA.run(write_cs_logfile=True)
@@ -85,9 +87,10 @@ else:
 print("Primary objective (-IS estimate) evaluated on safety dataset:")
 print(SA.evaluate_primary_objective(branch='safety_test',theta=solution))
 
+
+# Generate Gradient Descent Plots
 cs_file = './logs/candidate_selection_log0.p'
 solution_dict = load_pickle(cs_file)
-
 fig = plot_gradient_descent(solution_dict,
     primary_objective_name='- IS estimate',
     save=False)
