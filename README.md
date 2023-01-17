@@ -1,6 +1,6 @@
 ## Contents
 
-This repository contains the code and the project report for the Seldonian Toolkit library on the Tutoring assignment problem which is modelled as a offline contextual bandit.
+This repository contains the code and the project report (`687_Seldonian_Report.pdf`) for the Seldonian Toolkit library on the Tutoring assignment problem which is modelled as a offline contextual bandit.
 
 
 #### Requirements and Installation
